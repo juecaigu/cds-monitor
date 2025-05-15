@@ -6,10 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "eslint packages",
-    "lint-staged": {
-      "*": "pnpm run lint"
-    }
+    "lint": "eslint packages"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +21,6 @@
     "typescript-eslint": "^8.32.1"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{ts,tsx,json}": "eslint --fix"
   }
 }
