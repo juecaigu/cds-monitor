@@ -1,15 +1,12 @@
 {
-  "name": "@cds-monitor/core",
-  "version": "1.0.1",
+  "name": "@cds-monitor/type",
+  "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "dependencies": {
-    "@cds-monitor/type": "workspace:*"
-  },
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.9.0"
