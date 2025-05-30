@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      ua-parser-js:
-        specifier: ^2.0.3
-        version: 2.0.3
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.4
@@ -82,6 +78,9 @@ importers:
       '@cds-monitor/type':
         specifier: workspace:*
         version: link:../type
+      ua-parser-js:
+        specifier: ^2.0.3
+        version: 2.0.3
 
 packages:
 

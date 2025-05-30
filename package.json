@@ -42,8 +42,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "ua-parser-js": "^2.0.3"
   }
 }
