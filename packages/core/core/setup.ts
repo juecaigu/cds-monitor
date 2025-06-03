@@ -1,3 +1,3 @@
 export const setup = (): void => {
-  // call setup
-};
+  // call setup replace some functions and properties
+}
