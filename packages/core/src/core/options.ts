@@ -17,6 +17,7 @@ const OPTIONMAP: Record<
     required?: boolean;
   }
 > = {
+  apikey: { type: "String", default: "", required: true },
   dsn: { type: "String", default: "", required: true },
   throttleDelayTime: { type: "Number", default: 0 },
   overTime: { type: "Number", default: 10 },
@@ -46,6 +47,7 @@ const checkOptionRequired = (options: InitOptions) => {
 };
 
 class Options {
+  apikey = "";
   dsn = ""; // 监控上报接口的地址
   throttleDelayTime = 0; // click事件的节流时长
   overTime = 10; // 接口超时时长
@@ -55,8 +57,10 @@ class Options {
   filterXhrUrlRegExp: RegExp = new RegExp(""); // 过滤的接口请求正则
   handleHttpStatus: unknown; // 处理接口返回的 response
   repeatCodeError = false; // 是否去除重复的代码错误，重复的错误只上报一次
-  constructor() {}
   bindOptions(options: InitOptions) {
+    if (checkOptionType(OPTIONMAP.apikey.type, options.apikey)) {
+      this.apikey = options.apikey;
+    }
     if (checkOptionType(OPTIONMAP.dsn.type, options.dsn)) {
       this.dsn = options.dsn;
     }
