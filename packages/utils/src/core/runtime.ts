@@ -1,7 +1,7 @@
 import { Support } from "@cds-monitor/type";
 import { UAParser } from "ua-parser-js";
 
-const runtime = () => {
+const Runtime = () => {
   const global = window; // simply for web and  otherwise can use nodejs \ wxapp \ ...
   const uaResult = new UAParser().getResult();
   const support: Support = {
@@ -29,4 +29,6 @@ const runtime = () => {
   };
 };
 
-export default runtime();
+const runtime = Runtime();
+
+export { runtime };

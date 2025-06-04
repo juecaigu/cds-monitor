@@ -1,5 +1,5 @@
-import { InitOptions } from '@cds-monitor/type'
-import { handleOptions, setup } from './core'
+import { InitOptions } from "@cds-monitor/type";
+import { handleOptions, setup } from "./core";
 
 /**
  * 加载插件
@@ -7,15 +7,15 @@ import { handleOptions, setup } from './core'
  */
 const use = (plugins: []) => {
   if (!Array.isArray(plugins)) {
-    console.warn('plugins must be an array')
+    console.warn("plugins must be an array");
   }
-}
+};
 
 const init = (options: InitOptions) => {
   // 初始化options配置
-  handleOptions(options)
+  handleOptions(options);
   // 执行核心逻辑
-  setup()
-}
+  setup();
+};
 
-export { init, use }
+export { init, use };
