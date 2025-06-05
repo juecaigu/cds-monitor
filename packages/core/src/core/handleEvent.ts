@@ -1,9 +1,11 @@
-// import { options } from "./options";
-// import { whiteScreen } from "./whiteScreen";
+import { options } from "./options";
+import { whiteScreen } from "./whiteScreen";
 
 const HandleEvent = {
   whiteScreen() {
-    // whiteScreen(() => {}, options);
+    whiteScreen(() => {
+      // report whiteScreen error
+    }, options);
   },
 };
 
