@@ -1,22 +1,30 @@
-import { EVENTTYPES } from '@cds-monitor/common'
+import { EVENTTYPES } from "@cds-monitor/common";
 
 interface Support {
-  hasError: boolean // 某段时间代码是否报错
-  events: string[] // 存储录屏的信息
-  recordScreenId: string // 本次录屏的id
-  _loopTimer: number // 白屏循环检测的timer
-  deviceInfo: Record<string, string | undefined>
+  hasError: boolean; // 某段时间代码是否报错
+  events: string[]; // 存储录屏的信息
+  recordScreenId: string; // 本次录屏的id
+  _loopTimer: number; // 白屏循环检测的timer
+  deviceInfo: Record<string, string | undefined>;
 }
 
 interface Callback {
-  (...args: unknown[]): unknown
+  (...args: unknown[]): unknown;
 }
 
 interface ReplaceHandler {
-  type: EVENTTYPES
-  callback: Callback
+  type: EVENTTYPES;
+  callback: Callback;
 }
 
-type ReplaceCallback = (data?: unknown) => void
+type ReplaceCallback = (data?: unknown) => void;
 
-export { Support, Callback, ReplaceHandler, ReplaceCallback }
+interface ErrorTarget {
+  target?: {
+    localName?: string;
+  };
+  error?: unknown;
+  message?: string;
+}
+
+export { Support, Callback, ReplaceHandler, ReplaceCallback, ErrorTarget };
