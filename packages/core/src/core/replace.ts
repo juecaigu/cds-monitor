@@ -1,7 +1,7 @@
-import { EVENTTYPES } from "@cds-monitor/common";
-import { ReplaceHandler } from "@cds-monitor/type";
-import subscribe from "./subscribe";
-import { bindEvent, runtime } from "@cds-monitor/utils";
+import { EVENTTYPES } from '@cds-monitor/common';
+import { ReplaceHandler } from '@cds-monitor/type';
+import subscribe from './subscribe';
+import { bindEvent, runtime } from '@cds-monitor/utils';
 
 const _global = runtime.getGlobal();
 
@@ -12,8 +12,9 @@ const whiteScreen = () => {
 const listenError = () => {
   bindEvent(
     _global,
-    "error",
-    (event) => {
+    'error',
+    event => {
+      event?.preventDefault();
       subscribe.notify(EVENTTYPES.ERROR, event);
     },
     true

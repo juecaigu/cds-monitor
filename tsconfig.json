@@ -1,19 +1,12 @@
 {
-  "include": [
-    "packages",
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["packages"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "resolveJsonModule": true,
     "target": "es5",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "importHelpers": true,
+    "lib": ["dom", "esnext"],
+    "importHelpers": false,
     "declaration": true,
     "sourceMap": true,
     "strict": true,
@@ -30,13 +23,8 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "*": [
-        "src/*",
-        "node_modules/*"
-      ],
-      "@cds-monitor/*": [
-        "packages/*/src"
-      ],
+      "*": ["src/*", "node_modules/*"],
+      "@cds-monitor/*": ["packages/*/src"]
     },
     "jsx": "react",
     "esModuleInterop": true

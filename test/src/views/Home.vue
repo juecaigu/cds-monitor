@@ -5,16 +5,24 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-const handleDomError = () => {
-  const node = document.querySelector("#123456");
-};
-onMounted(() => {
-  // js load error
-  const head = document.getElementsByTagName("head")[0];
-  const script = document.createElement("script");
-  script.src = "www.xxx.com/xxx.js";
+import { onMounted } from 'vue';
+
+const scriptLoadError = () => {
+  const head = document.getElementsByTagName('head')[0];
+  const script = document.createElement('script');
+  script.src = 'www.xxx.com/xxx.js';
   head.appendChild(script);
-  handleDomError();
+};
+
+const imgLoadError = () => {
+  const body = document.getElementsByTagName('body')[0];
+  const img = document.createElement('img');
+  img.src = 'wwww.xxx.png';
+  body.append(img);
+};
+
+onMounted(() => {
+  scriptLoadError();
+  imgLoadError();
 });
 </script>

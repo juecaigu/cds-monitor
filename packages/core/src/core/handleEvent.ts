@@ -1,8 +1,8 @@
-import { options } from "./options";
-import { whiteScreen } from "./whiteScreen";
-import { ErrorTarget } from "@cds-monitor/type";
-import { typeofValue } from "@cds-monitor/utils";
-import { parseStackFrames } from "./parseStackFrames";
+import { options } from './options';
+import { whiteScreen } from './whiteScreen';
+import { ErrorTarget } from '@cds-monitor/type';
+import { typeofValue } from '@cds-monitor/utils';
+import { parseStackFrames } from './parseStackFrames';
 
 const HandleEvent = {
   hanleWhiteScreen() {
@@ -11,16 +11,17 @@ const HandleEvent = {
     }, options);
   },
   handleError(error: ErrorTarget) {
-    console.log("rr", error);
     const errorType = typeofValue(error);
     // javescript error
-    if (errorType === "errorevent") {
+    if (errorType === 'errorevent') {
+      console.log('123456', error);
       const stackFrames = parseStackFrames(error.error as Error);
-      console.log("stackFrames", stackFrames);
+      console.log('stackFrames', stackFrames);
     }
     // load source error
-    // if (errorType === "event") {
-    // }
+    if (errorType === 'event') {
+      console.log('22222', error);
+    }
   },
 };
 
