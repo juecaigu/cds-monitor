@@ -58,6 +58,10 @@ export interface JSError {
   time?: number;
   lineno?: number;
   colno?: number;
+  meta?: {
+    hook?: string;
+    componentName?: string;
+  };
 }
 
 export interface ReportData extends LoadSourceErrorTarget, JSError {

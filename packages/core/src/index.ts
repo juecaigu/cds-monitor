@@ -27,7 +27,7 @@ const install = (app: VueInstance, options: InitOptions) => {
   const handler = app.config.errorHandler;
   // vue项目在Vue.config.errorHandler中上报错误
   app.config.errorHandler = function (err: Error, vm: ViewModel, info: string): void {
-    HandleEvent.handleError(err);
+    HandleEvent.handleVueError(err, vm, info);
     if (handler) handler.apply(null, [err, vm, info]);
   };
   init(options);

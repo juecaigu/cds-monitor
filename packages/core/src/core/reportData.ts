@@ -20,6 +20,7 @@ const ReportData = () => {
   };
   const transFormData = (data: ReportData): ReportData => {
     return {
+      ...data,
       type: data.type,
       userId: userId,
       uuid: generateUUID(),
@@ -67,7 +68,7 @@ const ReportData = () => {
     }
     const result = await beforePost(data);
     if (result && typeof result !== 'boolean') {
-      if (sendLargeData(result)) {
+      if (!sendLargeData(result)) {
         beacon(dsn, result);
       } else {
         fetchPost(dsn, result);
