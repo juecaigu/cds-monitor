@@ -42,6 +42,7 @@ const checkOptionRequired = (options: InitOptions) => {
 
 class Options {
   apikey = '';
+  userId = '';
   dsn = ''; // 监控上报接口的地址
   throttleDelayTime = 0; // click事件的节流时长
   overTime = 10; // 接口超时时长

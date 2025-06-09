@@ -1,7 +1,8 @@
-import { InitOptions } from '@cds-monitor/type';
+import { InitOptions, ViewModel, VueInstance } from '@cds-monitor/type';
 import { handleOptions, setup } from './core';
 import { reportData } from './core/reportData';
 import { recordTime } from './core/recordTime';
+import { HandleEvent } from './core/handleEvent';
 
 /**
  * 加载插件
@@ -22,4 +23,14 @@ const init = (options: InitOptions) => {
   setup();
 };
 
-export { init, use };
+const install = (app: VueInstance, options: InitOptions) => {
+  const handler = app.config.errorHandler;
+  // vue项目在Vue.config.errorHandler中上报错误
+  app.config.errorHandler = function (err: Error, vm: ViewModel, info: string): void {
+    HandleEvent.handleError(err);
+    if (handler) handler.apply(null, [err, vm, info]);
+  };
+  init(options);
+};
+
+export default { install, use, init };

@@ -27,7 +27,7 @@ interface ErrorTarget {
   message?: string;
 }
 
-interface StackFrames {
+export interface StackFrames {
   filename: string;
   functionName: string;
   colno?: number;
@@ -65,7 +65,7 @@ export interface ReportData extends LoadSourceErrorTarget, JSError {
   userId?: string;
   pageUrl?: string;
   time?: number;
-  apiKey: string;
+  apiKey?: string;
   sdkVersion?: string;
   uuid?: string;
   deviceInfo?: {
