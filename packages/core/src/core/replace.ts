@@ -1,7 +1,7 @@
 import { EVENTTYPES } from '@cds-monitor/common';
-import { ReplaceHandler } from '@cds-monitor/type';
+import { Callback, ReplaceHandler } from '@cds-monitor/type';
 import subscribe from './subscribe';
-import { bindEvent, runtime } from '@cds-monitor/utils';
+import { bindEvent, getLocationHref, replaceAop, runtime } from '@cds-monitor/utils';
 
 const _global = runtime.getGlobal();
 
@@ -17,9 +17,44 @@ const listenError = () => {
       event?.preventDefault();
       subscribe.notify(EVENTTYPES.ERROR, event);
     },
-    true
+    true,
   );
 };
+
+const listenHistoryChange = (() => {
+  let lastHref = getLocationHref();
+  return () => {
+    bindEvent(
+      _global,
+      'popstate',
+      () => {
+        const to = getLocationHref();
+        const from = lastHref;
+        lastHref = to;
+        subscribe.notify(EVENTTYPES.HISTORY, {
+          from,
+          to,
+        });
+      },
+      true,
+    );
+    const historyFnReplace: Callback = fn => {
+      return function (this: unknown, ...args: unknown[]) {
+        const to = getLocationHref();
+        const from = lastHref;
+        lastHref = to;
+        subscribe.notify(EVENTTYPES.HISTORY, {
+          from,
+          to,
+        });
+        return (fn as (...args: unknown[]) => void).apply(this, args);
+      };
+    };
+    // 增强replaceState和pushState
+    replaceAop(_global.history, 'replaceState', historyFnReplace);
+    replaceAop(_global.history, 'pushState', historyFnReplace);
+  };
+})();
 
 const replace = (type: EVENTTYPES): void => {
   switch (type) {
@@ -28,6 +63,9 @@ const replace = (type: EVENTTYPES): void => {
       break;
     case EVENTTYPES.ERROR:
       listenError();
+      break;
+    case EVENTTYPES.HISTORY:
+      listenHistoryChange();
       break;
     default:
       break;

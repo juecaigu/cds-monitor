@@ -1,6 +1,6 @@
 import { options } from './options';
 import { whiteScreen } from './whiteScreen';
-import { ErrorTarget, ViewModel } from '@cds-monitor/type';
+import { ErrorTarget, RouteHistory, ViewModel } from '@cds-monitor/type';
 import { typeofValue, getErrorUid, errorHashMap } from '@cds-monitor/utils';
 import { parseStackFrames } from './parseStackFrames';
 import { reportData } from './reportData';
@@ -21,7 +21,9 @@ const HandleEvent = {
       const stackFrames = parseStackFrames(errorTarget);
       reportData.send({
         type: EVENTTYPES.ERROR,
-        stack: stackFrames,
+        reportInfo: {
+          stack: stackFrames,
+        },
       });
       console.log('errorevent', stackFrames);
     }
@@ -36,10 +38,24 @@ const HandleEvent = {
     if (!errorHashMap.hashExist(errorUid)) {
       reportData.send({
         type: EVENTTYPES.VUE,
-        message: error.message,
-        meta: {
-          componentName: component,
-          hook: info,
+        reportInfo: {
+          message: error.message,
+          meta: {
+            componentName: component,
+            hook: info,
+          },
+        },
+      });
+    }
+  },
+  handleHistory(data: RouteHistory) {
+    const { from, to } = data;
+    if (from !== to) {
+      reportData.send({
+        type: EVENTTYPES.HISTORY,
+        reportInfo: {
+          from,
+          to,
         },
       });
     }

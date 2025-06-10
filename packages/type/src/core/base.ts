@@ -64,8 +64,14 @@ export interface JSError {
   };
 }
 
-export interface ReportData extends LoadSourceErrorTarget, JSError {
+interface RouteHistory {
+  from: string;
+  to: string;
+}
+
+export interface ReportData {
   type: EVENTTYPES;
+  reportInfo: LoadSourceErrorTarget | JSError | RouteHistory;
   userId?: string;
   pageUrl?: string;
   time?: number;
@@ -82,4 +88,4 @@ export interface ReportData extends LoadSourceErrorTarget, JSError {
   status?: STATUS_CODE;
 }
 
-export { Support, Callback, ReplaceHandler, ReplaceCallback, ErrorTarget };
+export { Support, Callback, ReplaceHandler, ReplaceCallback, ErrorTarget, RouteHistory };

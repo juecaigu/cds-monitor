@@ -1,3 +1,6 @@
+import { Callback } from '@cds-monitor/type';
+import { ifExist } from './validate';
+
 const bindEvent = (
   _target: Element | Window,
   name: string,
@@ -20,4 +23,23 @@ const generateUUID = (): string => {
   return uuid;
 };
 
-export { bindEvent, generateUUID };
+const getLocationHref = (): string => {
+  if (typeof document === 'undefined' || document.location == null) return '';
+  return document.location.href;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const replaceAop = (target: any, name: string, replacement: Callback) => {
+  if (!ifExist(origin)) {
+    return;
+  }
+  if (name in target) {
+    const origin = target[name];
+    const wrapped = replacement(origin);
+    if (typeof wrapped === 'function') {
+      target[name] = wrapped;
+    }
+  }
+};
+
+export { bindEvent, generateUUID, getLocationHref, replaceAop };
