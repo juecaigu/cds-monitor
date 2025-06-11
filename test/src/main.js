@@ -3,6 +3,7 @@ import './style.css';
 import App from './App.vue';
 import router from './router/index.js';
 import Monitor from '@cds-monitor/core';
+import PerformancePlugin from '@cds-monitor/performance';
 
 const app = createApp(App);
 app.use(router).use(Monitor, {
@@ -16,5 +17,6 @@ app.use(router).use(Monitor, {
     return Promise.resolve(1000);
   },
 });
+Monitor.use([{ plugin: PerformancePlugin }]);
 
 app.mount('#app');

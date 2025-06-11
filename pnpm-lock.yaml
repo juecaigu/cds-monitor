@@ -80,7 +80,11 @@ importers:
         specifier: workspace:*
         version: link:../utils
 
-  packages/performance: {}
+  packages/performance:
+    dependencies:
+      '@cds-monitor/type':
+        specifier: workspace:*
+        version: link:../type
 
   packages/type:
     dependencies:

@@ -61,7 +61,7 @@ const ReportData = () => {
       });
     }
   };
-  const send = async (data: ReportData) => {
+  const send = async <T>(data: ReportData<T>) => {
     if (!ifExist(dsn)) {
       console.warn('dsn is required');
       return;

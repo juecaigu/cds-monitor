@@ -69,9 +69,9 @@ interface RouteHistory {
   to: string;
 }
 
-export interface ReportData {
+export interface ReportData<T = unknown> {
   type: EVENTTYPES;
-  reportInfo: LoadSourceErrorTarget | JSError | RouteHistory;
+  reportInfo: LoadSourceErrorTarget | JSError | RouteHistory | T;
   userId?: string;
   pageUrl?: string;
   time?: number;
