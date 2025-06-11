@@ -24,6 +24,7 @@ const use = (plugins: { plugin: PluginConstructor; options?: unknown }[]) => {
         return;
       }
       plugin.core({
+        getTime: recordTime.getTime,
         send: reportData.send,
         options: options,
         breadcrumbs: [],

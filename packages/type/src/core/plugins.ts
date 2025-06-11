@@ -3,6 +3,7 @@ import { InitOptions } from './options';
 
 export interface SdkPluginCore {
   send: (data: ReportData) => Promise<void>;
+  getTime: () => number;
   breadcrumbs: BreadcrumbData[];
   options: InitOptions;
 }

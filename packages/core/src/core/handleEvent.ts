@@ -25,11 +25,10 @@ const HandleEvent = {
           stack: stackFrames,
         },
       });
-      console.log('errorevent', stackFrames);
     }
     // load source error
     if (errorType === 'event') {
-      console.log('load source error', error);
+      console.warn('load source error', error);
     }
   },
   handleVueError(error: Error, vm: ViewModel, info: string) {

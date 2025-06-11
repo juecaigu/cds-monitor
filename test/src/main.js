@@ -18,5 +18,14 @@ app.use(router).use(Monitor, {
   },
 });
 Monitor.use([{ plugin: PerformancePlugin }]);
-
+function createLongTask() {
+  const startTime = Date.now();
+  // 执行一个耗时约 1000ms 的计算
+  while (Date.now() - startTime < 1000) {
+    // 进行大量计算
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    Math.random() * Math.random();
+  }
+}
+createLongTask();
 app.mount('#app');
