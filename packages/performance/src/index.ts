@@ -1,5 +1,6 @@
 import { Plugin, SdkPluginCore } from '@cds-monitor/type';
 import { RecordType } from './type';
+import { getFCP, longTask, getFPS } from './performance';
 
 class PerformancePlugin extends Plugin {
   type = 'performance';
@@ -8,14 +9,15 @@ class PerformancePlugin extends Plugin {
     this.options = options as RecordType;
   }
   core(sdk: SdkPluginCore): void {
-    console.log('123456', sdk);
-    const observer = new PerformanceObserver(list => {
-      console.log('list', list);
-      for (const long of list.getEntries()) {
-        console.log('long', long);
-      }
+    longTask(list => {
+      console.log('long', list, sdk);
     });
-    observer.observe({ entryTypes: ['longtask'] });
+    getFCP(entry => {
+      console.log('fcp', entry);
+    });
+    getFPS(fps => {
+      console.log('fps', fps);
+    });
   }
 }
 
