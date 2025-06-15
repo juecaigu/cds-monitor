@@ -1,9 +1,11 @@
+import { fmp } from './fmp';
+import { MPerformanceNavigationTiming } from './type';
+
 const longTask = (callback: (long: PerformanceEntry[]) => void) => {
   const result: PerformanceEntry[] = [];
   const observer = new PerformanceObserver(list => {
     for (const long of list.getEntries()) {
       result.push(long);
-      console.log('long', long);
     }
     callback(result);
   });
@@ -45,4 +47,53 @@ const getFPS = (callback: (fps: number) => void) => {
   loop();
 };
 
-export { longTask, getFCP, getFPS };
+// 获取 NT
+const getNavigationTiming = (): MPerformanceNavigationTiming | undefined => {
+  const resolveNavigationTiming = (
+    entry: PerformanceNavigationTiming,
+  ): MPerformanceNavigationTiming => {
+    const {
+      domainLookupStart,
+      domainLookupEnd,
+      connectStart,
+      connectEnd,
+      secureConnectionStart,
+      requestStart,
+      responseStart,
+      responseEnd,
+      domInteractive,
+      domContentLoadedEventEnd,
+      loadEventStart,
+      fetchStart,
+    } = entry;
+
+    return {
+      // 关键时间点
+      FP: responseEnd - fetchStart,
+      TTI: domInteractive - fetchStart,
+      DomReady: domContentLoadedEventEnd - fetchStart,
+      Load: loadEventStart - fetchStart,
+      FirstByte: responseStart - domainLookupStart,
+      // 关键时间段
+      DNS: domainLookupEnd - domainLookupStart,
+      TCP: connectEnd - connectStart,
+      SSL: secureConnectionStart ? connectEnd - secureConnectionStart : 0,
+      TTFB: responseStart - requestStart,
+      Trans: responseEnd - responseStart,
+      DomParse: domInteractive - responseEnd,
+      Res: loadEventStart - domContentLoadedEventEnd,
+    };
+  };
+
+  const navigation =
+    performance.getEntriesByType('navigation').length > 0
+      ? performance.getEntriesByType('navigation')[0]
+      : performance.timing; // W3C Level1  (目前兼容性高，仍然可使用，未来可能被废弃)。
+  return resolveNavigationTiming(navigation as PerformanceNavigationTiming);
+};
+
+const getFMP = (cb: (timing: number) => void) => {
+  fmp.init(cb);
+};
+
+export { longTask, getFCP, getFPS, getNavigationTiming, getFMP };

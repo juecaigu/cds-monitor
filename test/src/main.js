@@ -28,4 +28,6 @@ function createLongTask() {
   }
 }
 createLongTask();
-app.mount('#app');
+setTimeout(() => {
+  app.mount('#app');
+}, 1000);

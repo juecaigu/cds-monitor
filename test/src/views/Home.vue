@@ -17,8 +17,12 @@ const scriptLoadError = () => {
 const imgLoadError = () => {
   const body = document.getElementsByTagName('body')[0];
   const img = document.createElement('img');
+  img.style.width = '1000px';
+  img.style.height = '500px';
   img.src = 'wwww.xxx.png';
-  body.append(img);
+  setTimeout(() => {
+    body.append(img);
+  }, 500);
 };
 
 onMounted(() => {
